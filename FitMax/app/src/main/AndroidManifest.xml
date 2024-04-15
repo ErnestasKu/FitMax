@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:name=".Database.AppActivity"
@@ -12,26 +12,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitMax"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".Questionnaire"
+            android:exported="false"
+            android:label="Questionnaire"
+            android:parentActivityName=".Login" />
         <activity
             android:name=".SignUp"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Sign up"
+            android:parentActivityName=".Login" />
         <activity
             android:name=".Login"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Login"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".TabScreen"
             android:exported="false"
-            android:label="@string/title_activity_tab_screen" />
+            android:label="Main"
+            android:parentActivityName=".TabScreen" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

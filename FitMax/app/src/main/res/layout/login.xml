@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".Login">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="@dimen/toolbar_height"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- image -->
+        <ImageView
+            android:id="@+id/profile_add_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="Profile"
+            app:srcCompat="@drawable/account_circle" />
+
+        <!-- email container -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_container"
+            style="@style/myContainerStyle"
+            android:layout_marginBottom="10dp"
+            android:hint="Email">
+
+            <!-- email -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                style="@style/myInputStyle"
+                android:inputType="textEmailAddress"
+                android:lines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!-- password container -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_container"
+            style="@style/myContainerStyle"
+            android:layout_marginBottom="10dp"
+            android:hint="Password"
+            app:layout_constraintTop_toBottomOf="@+id/email_container">
+
+            <!-- password -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                style="@style/myInputStyle"
+                android:inputType="textPassword"
+                android:lines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- log in -->
+        <Button
+            android:id="@+id/log_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/black"
+            android:text="Log in"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- -sign up text -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Don't have an account? Sign up:"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <!-- sign up -->
+        <Button
+            android:id="@+id/sing_up_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="Sing up"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

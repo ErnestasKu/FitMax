@@ -1,6 +1,7 @@
 package com.example.fitmax;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,31 +10,36 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.fitmax.Database.AppActivity;
 import com.example.fitmax.Database.AppDatabase;
 import com.example.fitmax.Database.User;
-import com.example.fitmax.databinding.ActivityMainBinding;
-import com.example.fitmax.databinding.ActivitySignUpBinding;
+import com.example.fitmax.databinding.SignUpBinding;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
     private AppDatabase db;
-    private Button signUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        ActivitySignUpBinding binding;
+        SignUpBinding binding;
         super.onCreate(savedInstanceState);
-        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        binding = SignUpBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
         db = AppActivity.getDatabase();
 
+        // tool bar --------------------------------------------------------------------------------
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(binding.toolbar.toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        setTitle(getTitle());
+        // -----------------------------------------------------------------------------------------
 
         // sign up function
         binding.signUp.setOnClickListener(new View.OnClickListener() {
@@ -77,26 +83,28 @@ public class SignUp extends AppCompatActivity {
                     binding.passwordConfirmContainer.setHelperText("Password does not match");
                 } else binding.passwordConfirmContainer.setHelperTextEnabled(false);
 
+                // sign up -------------------------------------------------------------------------
                 if (isValid){
                     User user = new User();
                     user.setUsername(username_string);
                     user.setEmail(email_string);
                     user.setPassword(password_string);
+                    user.setWeight(-1);
                     db.userDAO().insert(user);
 
-                    String message = "Account successfully created!";
-                    Log.v("MMMM", message);
+                    successfulCreation();
                     openLogin();
                 }
-            }
-
-            private boolean checkEmail(String email) {
-                return db.userDAO().checkIfEmailAvailable(email);
             }
         });
     }
 
-    public void openLogin(){
+    private void successfulCreation(){
+        CharSequence message = "Account successfully created!";
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void openLogin(){
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }

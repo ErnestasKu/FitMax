@@ -7,15 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.fitmax.Database.AppActivity;
-import com.example.fitmax.Database.AppDatabase;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.start_screen);
 
         Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {

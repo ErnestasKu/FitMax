@@ -1,7 +1,23 @@
 <resources>
     <string name="app_name">FitMax</string>
-    <string name="title_activity_tab_screen">TabScreen</string>
+    <string name="title_activity_tab_screen">Tab screen</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_profile">Profile</string>
+
+
+    <string-array name="spinner_goals">
+        <item>Gain muscle</item>
+        <item>Increase stamina</item>
+        <item>Lose weight</item>
+    </string-array>
+
+    <string-array name="spinner_activities">
+        <item>Walking</item>
+        <item>Racewalking</item>
+        <item>Running</item>
+        <item>Jogging</item>
+        <item>Cycling Moderate</item>
+        <item>Cycling Fast</item>
+    </string-array>
 </resources>

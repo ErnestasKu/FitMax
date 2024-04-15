@@ -2,6 +2,7 @@ package com.example.fitmax;
 
 import android.os.Bundle;
 
+import com.example.fitmax.databinding.TabScreenBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,17 +11,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.fitmax.databinding.ActivityTabScreenBinding;
+import com.example.fitmax.databinding.TabScreenBinding;
 
 public class TabScreen extends AppCompatActivity {
 
-    private ActivityTabScreenBinding binding;
+    private TabScreenBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityTabScreenBinding.inflate(getLayoutInflater());
+        binding = TabScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);

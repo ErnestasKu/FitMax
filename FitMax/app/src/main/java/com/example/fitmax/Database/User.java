@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 @Entity(indices = {@Index(value = {"email"}, unique = true)})
 public class User {
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long id_user;
 
     @NonNull
     @ColumnInfo(name = "email")
@@ -24,53 +24,63 @@ public class User {
     @ColumnInfo(name = "password")
     private String password;
 
-    // methods -------------------------------------------------------------------------------------
-//    public User(@NonNull String username, @NonNull String password) {
-//        this.username = username;
-//        this.password = password;
-//    }
+    @ColumnInfo(name = "weight")
+    private float weight;
 
-    // get id
-    public long getId() {
-        return id;
+    @ColumnInfo(name = "id_plan")
+    private float id_plan;
+
+    // methods -------------------------------------------------------------------------------------
+
+
+    public long getId_user() {
+        return id_user;
     }
 
-    // get username
     @NonNull
     public String getEmail() {
         return email;
     }
 
-    // get username
     @NonNull
     public String getUsername() {
         return username;
     }
 
-    // get password
     @NonNull
     public String getPassword() {
         return password;
     }
 
-    // set id
-    public void setId(long id) {
-        this.id = id;
+    public float getWeight() {
+        return weight;
     }
 
-    // set username
+    public float getId_plan() {
+        return id_plan;
+    }
+
+    public void setId_user(long id_user) {
+        this.id_user = id_user;
+    }
+
     public void setEmail(@NonNull String email) {
         this.email = email;
     }
 
-    // set username
     public void setUsername(@NonNull String username) {
         this.username = username;
     }
 
-    // set password
     public void setPassword(@NonNull String password) {
         this.password = password;
     }
 
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public void setId_plan(float id_plan) {
+        this.id_plan = id_plan;
+    }
 }
