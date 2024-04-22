@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
         LoginDate.class,
         PhysicalActivity.class,
         Plan.class,
+        CompletedActivities.class,
         PlansFromActivities.class},
         version = 1)
 public abstract class AppDatabase extends RoomDatabase {
@@ -20,4 +21,5 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PlanDAO planDAO();
 
     public abstract PlansFromActivitiesDAO plansFromActivitiesDAO();
+    public abstract CompletedActivitiesDAO completedActivitiesDAO();
 }
