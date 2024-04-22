@@ -24,7 +24,7 @@
             android:id="@+id/info"
             style="@style/myDescriptionStyle"
             android:layout_marginBottom="24dp"
-            android:text="Please complete the questionaire to set your goals."
+            android:text="Please complete the questionnaire to set your goals."
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="36dp" />

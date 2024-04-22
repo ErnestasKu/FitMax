@@ -21,12 +21,6 @@ public class AppActivity extends Application {
                 .allowMainThreadQueries().build();
 
         try {
-
-//            SupportSQLiteDatabase sqLiteDatabase = db.getOpenHelper().getWritableDatabase();
-//            String rawQuery = BaseData.base_data;
-//            sqLiteDatabase.execSQL(rawQuery);
-
-
             SupportSQLiteDatabase sqLiteDatabase = db.getOpenHelper().getWritableDatabase();
             String[] queries = BaseData.base_data.split(";");
             for (String query : queries) {
