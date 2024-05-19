@@ -9,9 +9,11 @@ import android.view.View;
 
 import com.example.fitmax.Database.AppActivity;
 import com.example.fitmax.Database.AppDatabase;
+import com.example.fitmax.Database.PhysicalActivity;
 import com.example.fitmax.Other.SessionManager;
 import com.example.fitmax.databinding.LoginBinding;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
@@ -27,6 +29,18 @@ public class Login extends AppCompatActivity {
         setContentView(view);
 
         db = AppActivity.getDatabase();
+
+
+//        long id_user = 1;
+//        List<PhysicalActivity> list = db.userDAO().GetActivitiesOfDay(1, "Monday");
+//        String thing = "";
+//        for (PhysicalActivity act: list
+//             ) {
+//            thing += act.getActivity_name();
+//        }
+//
+//        binding.signUpDescription.setText(thing);
+
         // tool bar --------------------------------------------------------------------------------
         setSupportActionBar(binding.toolbar.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

@@ -6,16 +6,6 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-enum Weekday {
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-    Sunday
-}
-
 @Entity(foreignKeys = {
         @ForeignKey(entity = PhysicalActivity.class,
                 parentColumns = "id_activity",
@@ -42,7 +32,7 @@ public class PlansFromActivities {
     private long id_activity;
 
     @ColumnInfo(name = "weekday")
-    private Weekday weekday;
+    private String weekday;
 
     // methods -------------------------------------------------------------------------------------
 
@@ -59,7 +49,7 @@ public class PlansFromActivities {
         this.id_activity = id_activity;
     }
 
-    public void setWeekday(Weekday weekday) {
+    public void setWeekday(String weekday) {
         this.weekday = weekday;
     }
 
@@ -75,7 +65,7 @@ public class PlansFromActivities {
         return id_activity;
     }
 
-    public Weekday getWeekday() {
+    public String getWeekday() {
         return weekday;
     }
 }

@@ -5,13 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-enum ActivityType {
-    Core,
-    Holistic,
-    Lower,
-    Upper
-}
-
 @Entity
 public class PhysicalActivity {
 
@@ -28,7 +21,7 @@ public class PhysicalActivity {
 
     @NonNull
     @ColumnInfo(name = "activity_type")
-    private ActivityType type;
+    private String type;
 
     @NonNull
     @ColumnInfo(name = "met")
@@ -50,7 +43,7 @@ public class PhysicalActivity {
     }
 
     @NonNull
-    public ActivityType getType() {
+    public String getType() {
         return type;
     }
 
@@ -71,7 +64,7 @@ public class PhysicalActivity {
         this.duration = duration;
     }
 
-    public void setType(@NonNull ActivityType type) {
+    public void setType(@NonNull String type) {
         this.type = type;
     }
 

@@ -37,10 +37,6 @@ public class CompletedActivities {
     @ColumnInfo(name = "completion_date")
     private String completion_date;
 
-    @NonNull
-    @ColumnInfo(name = "completed")
-    private boolean completed;
-
 
     public long getId_completed_activity() {
         return id_completed_activity;
@@ -73,13 +69,5 @@ public class CompletedActivities {
 
     public void setCompletion_date(@NonNull String completion_date) {
         this.completion_date = completion_date;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
     }
 }
