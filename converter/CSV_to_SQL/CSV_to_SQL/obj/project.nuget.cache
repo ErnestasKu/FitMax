@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zJKqjx5mFNtpHssBFekFQ7IvTjc5rpTL4xmfcJAp6PMLvVNeXnVkdrvaJciRqnIiwSTvNb2k9A4FacQ0PsNrUA==",
+  "dgSpecHash": "kWl86QwoD0g+QK2FLD9moCYJ3BfT5GmmMoPIpU1FFSCgVN7I5dbCs1E+ITBup4++7BPACbIVxPblMv6jdou7ig==",
   "success": true,
-  "projectFilePath": "C:\\Users\\12345\\OneDrive\\Stalinis kompiuteris\\converter\\CSV_to_SQL\\CSV_to_SQL\\xlsx_to_sql.csproj",
+  "projectFilePath": "C:\\Users\\12345\\OneDrive\\Documents\\GitHub\\FitMax\\converter\\CSV_to_SQL\\CSV_to_SQL\\xlsx_to_sql.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\12345\\.nuget\\packages\\bytescout.spreadsheet\\4.7.1.2054\\bytescout.spreadsheet.4.7.1.2054.nupkg.sha512",
     "C:\\Users\\12345\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.1\\microsoft.netcore.platforms.5.0.1.nupkg.sha512",

@@ -2,7 +2,6 @@ package com.example.fitmax;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -67,7 +66,7 @@ public class Questionnaire extends AppCompatActivity {
 
                 String plan_string = binding.planSpinner.getSelectedItem().toString();
                 Plan selectedPlan = GetPlanFromName(plan_string, plans);
-                db.userDAO().FinishQuestionnaire(id_user, weight, selectedPlan.getId_plan());
+                db.userDAO().finishQuestionnaire(id_user, weight, selectedPlan.getId_plan());
 
                 Toast.makeText(getApplicationContext(), "Account updated successfully",
                         Toast.LENGTH_SHORT).show();

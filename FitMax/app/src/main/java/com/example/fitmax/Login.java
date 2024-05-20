@@ -30,17 +30,6 @@ public class Login extends AppCompatActivity {
 
         db = AppActivity.getDatabase();
 
-
-//        long id_user = 1;
-//        List<PhysicalActivity> list = db.userDAO().GetActivitiesOfDay(1, "Monday");
-//        String thing = "";
-//        for (PhysicalActivity act: list
-//             ) {
-//            thing += act.getActivity_name();
-//        }
-//
-//        binding.signUpDescription.setText(thing);
-
         // tool bar --------------------------------------------------------------------------------
         setSupportActionBar(binding.toolbar.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -94,13 +83,14 @@ public class Login extends AppCompatActivity {
                     openQuestionnaire(id);
                 }
                 else {
-                    SessionManager.storeLoginSession(getApplicationContext(), id);// storeLoginSession(id);
+                    SessionManager.storeLoginSession(getApplicationContext(), id);
                     SessionManager.GoToMain(view.getContext());
                 }
 
                 // store user id for session
             }
         });
+
         binding.singUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

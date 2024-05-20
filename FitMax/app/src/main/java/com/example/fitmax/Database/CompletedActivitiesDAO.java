@@ -14,6 +14,14 @@ public interface CompletedActivitiesDAO {
     @Query("SELECT * FROM completedactivities WHERE id_user = :id_user")
     List<CompletedActivities> GetCAFromId(long id_user);
 
-    @Query("SELECT COUNT(*) FROM completedactivities WHERE id_activity = :id_activity AND completion_date = :date")
-    boolean CheckIfCompleted(Long id_activity, String date);
+    @Query("SELECT COUNT(*) FROM completedactivities" +
+            " WHERE id_activity = :id_activity" +
+            " AND completion_date = :date" +
+            " AND id_user = :id_user")
+    boolean checkIfCompleted(Long id_user, Long id_activity, String date);
+
+    @Query("SELECT COUNT(*) FROM completedactivities" +
+            " WHERE id_user = :id_user" +
+            " AND completion_date = :date")
+    int getCompletedCountInDay(Long id_user, String date);
 }

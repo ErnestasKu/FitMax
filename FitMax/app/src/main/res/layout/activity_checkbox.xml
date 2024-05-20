@@ -9,7 +9,7 @@
         android:id="@+id/checkbox_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/borders_rounded"
+        android:background="@drawable/background_rounded"
         android:backgroundTint="#0099FF"
         android:text="This is an item item item item item item item item item item item "
         android:textSize="28dp" />

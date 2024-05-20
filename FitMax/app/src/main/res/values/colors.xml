@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="buttonMain">#CA0909</color>
-    <color name="BackgroundMain">#FFFFFF</color>
+    <color name="BackgroundMain">#FDF6FE</color>
     <color name="red">#FF0000</color>
     <color name="toolbar">#000000</color>
 </resources>

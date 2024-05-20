@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDate;
+
 
 @Entity(indices = {@Index(value = {"email"}, unique = true)})
 public class User {
@@ -28,10 +30,21 @@ public class User {
     private float weight;
 
     @ColumnInfo(name = "id_plan")
-    private float id_plan;
+    private Long id_plan;
+
+    @ColumnInfo(name = "step_cunt")
+    private int step_count;
+
+    @ColumnInfo(name = "creation_date")
+    private String creation_date;
+
 
     // methods -------------------------------------------------------------------------------------
 
+
+    public User() {
+        creation_date = LocalDate.now().toString();
+    }
 
     public long getId_user() {
         return id_user;
@@ -56,12 +69,20 @@ public class User {
         return weight;
     }
 
-    public float getId_plan() {
+    public Long getId_plan() {
         return id_plan;
     }
 
     public void setId_user(long id_user) {
         this.id_user = id_user;
+    }
+
+    public int getStep_count() {
+        return step_count;
+    }
+
+    public String getCreation_date() {
+        return creation_date;
     }
 
     public void setEmail(@NonNull String email) {
@@ -80,7 +101,15 @@ public class User {
         this.weight = weight;
     }
 
-    public void setId_plan(float id_plan) {
+    public void setId_plan(Long id_plan) {
         this.id_plan = id_plan;
+    }
+
+    public void setStep_count(int step_count) {
+        this.step_count = step_count;
+    }
+
+    public void setCreation_date(String creation_date) {
+        this.creation_date = creation_date;
     }
 }

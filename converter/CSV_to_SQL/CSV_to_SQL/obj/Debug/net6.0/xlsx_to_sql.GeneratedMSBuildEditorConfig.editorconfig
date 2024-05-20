@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = xlsx_to_sql
-build_property.ProjectDir = C:\Users\12345\OneDrive\Stalinis kompiuteris\converter\CSV_to_SQL\CSV_to_SQL\
+build_property.ProjectDir = C:\Users\12345\OneDrive\Documents\GitHub\FitMax\converter\CSV_to_SQL\CSV_to_SQL\

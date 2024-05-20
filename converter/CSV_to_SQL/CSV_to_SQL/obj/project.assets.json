@@ -3236,11 +3236,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\12345\\OneDrive\\Stalinis kompiuteris\\converter\\CSV_to_SQL\\CSV_to_SQL\\xlsx_to_sql.csproj",
+      "projectUniqueName": "C:\\Users\\12345\\OneDrive\\Documents\\GitHub\\FitMax\\converter\\CSV_to_SQL\\CSV_to_SQL\\xlsx_to_sql.csproj",
       "projectName": "xlsx_to_sql",
-      "projectPath": "C:\\Users\\12345\\OneDrive\\Stalinis kompiuteris\\converter\\CSV_to_SQL\\CSV_to_SQL\\xlsx_to_sql.csproj",
+      "projectPath": "C:\\Users\\12345\\OneDrive\\Documents\\GitHub\\FitMax\\converter\\CSV_to_SQL\\CSV_to_SQL\\xlsx_to_sql.csproj",
       "packagesPath": "C:\\Users\\12345\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\12345\\OneDrive\\Stalinis kompiuteris\\converter\\CSV_to_SQL\\CSV_to_SQL\\obj\\",
+      "outputPath": "C:\\Users\\12345\\OneDrive\\Documents\\GitHub\\FitMax\\converter\\CSV_to_SQL\\CSV_to_SQL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -30,28 +30,7 @@ public interface UserDAO {
     boolean checkIfQuestionnaireComplete(long id_user);
 
     @Query("UPDATE user SET weight = :weight, id_plan = :id_plan WHERE id_user = :id_user")
-    void FinishQuestionnaire(long id_user, float weight, long id_plan);
-
-//    @Query("SELECT PhysicalActivity.id_activity, " +
-//            "PhysicalActivity.activity_name, " +
-//            "PhysicalActivity.duration, " +
-//            "PhysicalActivity.activity_type, " +
-//            "PhysicalActivity.met " +
-//            "FROM `plan` " +
-//            "JOIN PlansFromActivities on `plan`.id_plan = PlansFromActivities.id_plan " +
-//            "JOIN PhysicalActivity on PhysicalActivity.id_activity = PlansFromActivities.id_activity " +
-//            "JOIN User on user.id_plan = PlansFromActivities.id_plan " +
-//            "WHERE User.id_user = :id_user " +
-//            "AND PlansFromActivities.weekday = CASE strftime('%w', 'now') " +
-//            "            WHEN '0' THEN 'Sunday' " +
-//            "            WHEN '1' THEN 'Monday' " +
-//            "            WHEN '2' THEN 'Tuesday' " +
-//            "            WHEN '3' THEN 'Wednesday' " +
-//            "            WHEN '4' THEN 'Thursday' " +
-//            "            WHEN '5' THEN 'Friday' " +
-//            "            ELSE 'Saturday' " +
-//            "       END;")
-//    List<PhysicalActivity> GetTodaysActivities(long id_user);
+    void finishQuestionnaire(long id_user, float weight, long id_plan);
 
     @Query("SELECT PhysicalActivity.* " +
             "FROM `plan` " +
@@ -60,5 +39,11 @@ public interface UserDAO {
             "JOIN User on user.id_plan = PlansFromActivities.id_plan " +
             "WHERE User.id_user = :id_user " +
             "AND PlansFromActivities.weekday = :weekday")
-        List<PhysicalActivity> GetActivitiesOfDay(long id_user, String weekday);
+    List<PhysicalActivity> getActivitiesOfDay(long id_user, String weekday);
+
+    @Query("SELECT user.* FROM user WHERE id_user = :id_user")
+    User getUser(long id_user);
+
+    @Query("SELECT id_plan FROM user WHERE id_user = :id_user")
+    long getUserPlan(long id_user);
 }
