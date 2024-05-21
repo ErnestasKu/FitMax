@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.DashboardFragment">
 
+    <!-- month year view -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,8 +30,8 @@
             android:layout_weight="2"
             android:fontFamily="@font/alatsi"
             android:text="April 2024"
-            android:textColor="@color/white"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="20dp" />
 
         <Button
@@ -38,53 +39,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
-            android:scaleX="-1"
             android:background="#00000000"
             android:drawableLeft="@drawable/back_arrow"
+            android:scaleX="-1"
             android:textColor="@color/black" />
 
     </LinearLayout>
 
+    <!-- weekday year view -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <TextView
             style="@style/CalendarWeekdayStyle"
             android:text="MON" />
-
         <TextView
             style="@style/CalendarWeekdayStyle"
             android:text="TUE" />
-
         <TextView
             style="@style/CalendarWeekdayStyle"
             android:text="WED" />
-
         <TextView
             style="@style/CalendarWeekdayStyle"
             android:text="THU" />
-
         <TextView
             style="@style/CalendarWeekdayStyle"
             android:text="FRI" />
-
         <TextView
             style="@style/CalendarWeekdayStyle"
             android:text="SAT" />
-
         <TextView
             style="@style/CalendarWeekdayStyle"
             android:text="SUN" />
-
     </LinearLayout>
 
+    <!-- day container -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendar_container"
         android:layout_width="match_parent"
         android:layout_height="400dp">
-
-
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/myDescriptionStyle"
+        android:text="Calories lost this week: 1000 kcal"/>
 </LinearLayout>

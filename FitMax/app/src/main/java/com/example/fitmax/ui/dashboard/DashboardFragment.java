@@ -72,7 +72,7 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         ArrayList<String> days = getDayList(date);
 
         // instantiation
-        CalendarAdapter adapter = new CalendarAdapter(days, this);
+        CalendarAdapter adapter = new CalendarAdapter(days, this, selectedDate);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 7);
         binding.calendarContainer.setLayoutManager(layoutManager);
         binding.calendarContainer.setAdapter(adapter);
@@ -87,7 +87,7 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         int firstDayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
         for (int i = 1; i <= 42; i++)
-            if (i < firstDayOfWeek || i > daysInMonth + firstDayOfWeek)
+            if (i < firstDayOfWeek || i > daysInMonth + firstDayOfWeek - 1)
                 days.add("");
             else
                 days.add(String.valueOf(i - firstDayOfWeek + 1));

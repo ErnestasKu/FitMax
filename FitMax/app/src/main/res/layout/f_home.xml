@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="20dp"
+    android:padding="20dp"
     tools:context=".ui.home.HomeFragment">
 
     <TextView
@@ -16,23 +15,41 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Today"
+        android:background="@color/red"
         android:textAlignment="center"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/plan_details"-->
-<!--        style="@style/myDescriptionStyle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Plan details"-->
-<!--        android:textSize="30sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/today" />-->
+
+    <TextView
+        android:id="@+id/step_details"
+        style="@style/myDescriptionStyle"
+        android:text="Daily steps taken:"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/today" />
+
+    <TextView
+        android:id="@+id/step_display"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="100/250:"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/step_details" />
+
+
+    <TextView
+        android:id="@+id/plan_details"
+        style="@style/myDescriptionStyle"
+        android:text="Activities to do:"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/step_display" />
 
     <LinearLayout
         android:id="@+id/plan_container"
@@ -40,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/today" />
+        app:layout_constraintTop_toBottomOf="@+id/plan_details" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
