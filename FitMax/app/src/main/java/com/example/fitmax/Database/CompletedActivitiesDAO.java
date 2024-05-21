@@ -30,4 +30,13 @@ public interface CompletedActivitiesDAO {
             " WHERE id_user = :id_user" +
             " AND completion_date = :date")
     List<PhysicalActivity> getCompletedInDay(Long id_user, String date);
+
+    @Query("SELECT PhysicalActivity.* FROM completedactivities" +
+            " JOIN PhysicalActivity on PhysicalActivity.id_activity = completedactivities.id_activity " +
+            " WHERE id_user = :id_user" +
+            " AND completedactivities.completion_date BETWEEN" +
+            " :startDate AND :endDate")
+    List<PhysicalActivity> getCompletedInTimespan(Long id_user, String startDate, String endDate);
+
+
 }

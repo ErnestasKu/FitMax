@@ -47,10 +47,6 @@ public class HomeFragment extends Fragment {
         List<PhysicalActivity> list = db.userDAO().getActivitiesOfDay(id_user, day);
         for (PhysicalActivity activity : list) {
 
-//            View checkBoxItem = inflater.inflate(R.layout.activity_checkbox, binding.planContainer, false);
-//            CheckBox checkBox = checkBoxItem.findViewById(R.id.checkbox_item);
-//            CheckBox checkBox = (CheckBox) root.findViewById(R.id.activity_checkbox);
-
             // create checkbox
             CheckBox checkBox = new CheckBox(getContext());
             checkBox.setTextSize(24);

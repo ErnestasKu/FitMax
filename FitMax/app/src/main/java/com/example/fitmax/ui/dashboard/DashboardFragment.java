@@ -1,7 +1,7 @@
 package com.example.fitmax.ui.dashboard;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,23 +16,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fitmax.CalendarAdapter;
 import com.example.fitmax.Database.AppActivity;
 import com.example.fitmax.Database.AppDatabase;
+import com.example.fitmax.Database.PhysicalActivity;
 import com.example.fitmax.Database.User;
+import com.example.fitmax.Other.CommonMethods;
 import com.example.fitmax.Other.SessionManager;
 import com.example.fitmax.R;
 import com.example.fitmax.databinding.FDashboardBinding;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class DashboardFragment extends Fragment implements CalendarAdapter.OnItemListener {
 
-    private FDashboardBinding binding;
+    private com.example.fitmax.databinding.FDashboardBinding binding;
     private LocalDate selectedDate;
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    private String currentMonth;
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public AppDatabase db = AppActivity.getDatabase();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,33 +52,93 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         binding = FDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
+        // calendar --------------------------------------------------------------------------------
         selectedDate = LocalDate.now();
         setMonthView(selectedDate);
 
-
-        binding.leftButton.setOnClickListener(new View.OnClickListener() {
+        // previous calendar
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 backMonth();
             }
         });
 
-        binding.rightButton.setOnClickListener(new View.OnClickListener() {
+        // next calendar
+        binding.forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 forwardMonth();
             }
         });
+
+        // graph -----------------------------------------------------------------------------------
+        createChart();
+
+
         return root;
+    }
+
+    private void createChart() {
+        long id_user = SessionManager.getLoginSession(getContext());
+
+        LocalDate startOfWeek = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        float totalCalories = 0;
+
+        // get data
+        ArrayList<BarEntry> list = new ArrayList<>();
+        float weight = db.userDAO().getUser(id_user).getWeight();
+        for (int i = 0; i < 7; i++) {
+            List<PhysicalActivity> activities = db.completedActivitiesDAO().
+                    getCompletedInDay(id_user, startOfWeek.toString());
+            startOfWeek = startOfWeek.plusDays(1);
+
+            float calories = 0;
+            for (PhysicalActivity act : activities) {
+                calories += CommonMethods.GetActivityCalories(act, weight);
+            }
+            list.add(new BarEntry(i, calories));
+            totalCalories += calories;
+        }
+
+        // set total calories text -----------------------------------------------------------------
+        binding.totalCalories.setText("Total calories burned this week: " + totalCalories + " kcal");
+
+        // chart customization ---------------------------------------------------------------------
+        BarChart barChart = binding.calorieChart;
+        BarDataSet dataSet = new BarDataSet(list, "Calories burned this week");
+        BarData data = new BarData(dataSet);
+        barChart.setData(data);
+
+        barChart.setDrawGridBackground(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.setDrawBorders(false);
+        barChart.setScaleEnabled(false);
+        barChart.getLegend().setEnabled(false);
+
+        // data format
+        Typeface typeface = Typeface.create(Typeface.DEFAULT_BOLD, Typeface.BOLD);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataSet.setValueTextSize(16);
+        dataSet.setValueTypeface(typeface);
+
+        // x axis format
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        xAxis.setDrawGridLines(false);
+        xAxis.setTypeface(typeface);
+        xAxis.setTextSize(12);
+
+        String[] xLabels = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(xLabels));
+
+        barChart.getAxisLeft().setTextSize(12);
+        barChart.getAxisRight().setTextSize(12);
     }
 
     private void setMonthView(LocalDate date) {
         // moth - year display
         binding.monthYearText.setText(getMonthYearString(date));
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//        currentMonth = date.getYear() + "-" + date.getMonthValue() + "-";
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // day container
         ArrayList<String> days = getDayList(date);
 
@@ -129,9 +200,6 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         LocalDate fullDate = selectedDate.withDayOfMonth(Integer.parseInt(dayText));
         LocalDate creationDate = LocalDate.parse(user.getCreation_date());
 
-        Log.d("EEEEEEEEE", "current day: " + LocalDate.now());
-        Log.d("EEEEEEEEE", "selected day: " + fullDate);
-
         // return if selected date is before creation date
         // or if it's after current day
         if (fullDate.isBefore(creationDate) || fullDate.isAfter(LocalDate.now()))
@@ -139,14 +207,22 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
 
         // get activity info -----------------------------------------------------------------------
         long id_plan = user.getId_plan();
-        int activityCount = db.plansFromActivitiesDAO().getActivityCountOfPlanDay(id_plan, fullDate.getDayOfWeek().name());
-        int completedCount = db.completedActivitiesDAO().getCompletedCountInDay(id_user, fullDate.toString());
+
+        int activityCount = db.plansFromActivitiesDAO().
+                getActivityCountOfPlanDay(id_plan, fullDate.getDayOfWeek().name());
+
+        int completedCount = db.completedActivitiesDAO().
+                getCompletedCountInDay(id_user, fullDate.toString());
 
         // create view -----------------------------------------------------------------------------
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.calendar_popup, null);
 
         // set popup text --------------------------------------------------------------------------
+        // header
+        String header = fullDate.format(DateTimeFormatter.ofPattern("MMMM d"));
+        ((TextView) view.findViewById(R.id.popup_date)).setText(header);
+
         String line_a = "Completed activities: " + completedCount + "/" + activityCount;
         String line_b = "No step count set";
         ((TextView) view.findViewById(R.id.activity_count_text)).setText(line_a);
@@ -172,7 +248,7 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         );
 
         View clickedView = binding.calendarContainer.getLayoutManager().findViewByPosition(position);
-        popupWindow.showAsDropDown(binding.monthYearText);
+        popupWindow.showAsDropDown(clickedView);
 
     }
 }

@@ -7,4 +7,5 @@
     <color name="red">#FF0000</color>
     <color name="toolbar">#000000</color>
     <color name="transparent">#00000000</color>
+    <color name="headerBlue">#2795DF</color>
 </resources>

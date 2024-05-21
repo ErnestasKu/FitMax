@@ -7,10 +7,18 @@
     android:padding="10dp">
 
 
+    <TextView
+        android:id="@+id/popup_date"
+        style="@style/CalendarPopupText"
+        android:text="May 1st."
+        android:textStyle="bold"/>
+
     <LinearLayout
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
 
         <TextView
             android:id="@+id/check_activity"

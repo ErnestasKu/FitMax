@@ -1,89 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.dashboard.DashboardFragment">
+    android:layout_height="match_parent">
 
-    <!-- month year view -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2795DF"
-        android:gravity="center">
+        android:orientation="vertical"
+        tools:context=".ui.dashboard.DashboardFragment">
 
-        <Button
-            android:id="@+id/left_button"
-            android:layout_width="wrap_content"
+        <!-- calendar -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:background="#00000000"
-            android:drawableLeft="@drawable/back_arrow"
-            android:textColor="@color/black" />
+            android:orientation="vertical">
 
+            <!-- month year view -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#2795DF"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:background="#00000000"
+                    android:contentDescription="left button"
+                    android:drawableLeft="@drawable/back_arrow"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/month_year_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/alatsi"
+                    android:text="April 2024"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/forward_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:background="#00000000"
+                    android:contentDescription="right button"
+                    android:drawableLeft="@drawable/back_arrow"
+                    android:scaleX="-1"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <!-- weekday year view -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/CalendarWeekdayStyle"
+                    android:text="MON" />
+
+                <TextView
+                    style="@style/CalendarWeekdayStyle"
+                    android:text="TUE" />
+
+                <TextView
+                    style="@style/CalendarWeekdayStyle"
+                    android:text="WED" />
+
+                <TextView
+                    style="@style/CalendarWeekdayStyle"
+                    android:text="THU" />
+
+                <TextView
+                    style="@style/CalendarWeekdayStyle"
+                    android:text="FRI" />
+
+                <TextView
+                    style="@style/CalendarWeekdayStyle"
+                    android:text="SAT" />
+
+                <TextView
+                    style="@style/CalendarWeekdayStyle"
+                    android:text="SUN" />
+            </LinearLayout>
+
+            <!-- day container -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calendar_container"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+        </LinearLayout>
+
+        <!-- total weekly calories -->
         <TextView
-            android:id="@+id/month_year_text"
-            android:layout_width="wrap_content"
+            android:id="@+id/total_calories"
+            style="@style/myDescriptionStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:fontFamily="@font/alatsi"
-            android:text="April 2024"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:height="50dp"
+            android:background="@color/headerBlue"
+            android:gravity="center"
+            android:text="Calories lost this week: 0 kcal"
+            android:textColor="@color/white" />
 
-        <Button
-            android:id="@+id/right_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:background="#00000000"
-            android:drawableLeft="@drawable/back_arrow"
-            android:scaleX="-1"
-            android:textColor="@color/black" />
+        <!-- calorie chart -->
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/calorie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/transparent" />
 
     </LinearLayout>
-
-    <!-- weekday year view -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/CalendarWeekdayStyle"
-            android:text="MON" />
-        <TextView
-            style="@style/CalendarWeekdayStyle"
-            android:text="TUE" />
-        <TextView
-            style="@style/CalendarWeekdayStyle"
-            android:text="WED" />
-        <TextView
-            style="@style/CalendarWeekdayStyle"
-            android:text="THU" />
-        <TextView
-            style="@style/CalendarWeekdayStyle"
-            android:text="FRI" />
-        <TextView
-            style="@style/CalendarWeekdayStyle"
-            android:text="SAT" />
-        <TextView
-            style="@style/CalendarWeekdayStyle"
-            android:text="SUN" />
-    </LinearLayout>
-
-    <!-- day container -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/calendar_container"
-        android:layout_width="match_parent"
-        android:layout_height="400dp">
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/myDescriptionStyle"
-        android:text="Calories lost this week: 1000 kcal"/>
-</LinearLayout>
+</ScrollView>
