@@ -3,13 +3,14 @@ package com.example.fitmax.Database;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
 
 
-@Entity(indices = {@Index(value = {"email"}, unique = true)})
+@Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
     private long id_user;
@@ -28,12 +29,6 @@ public class User {
 
     @ColumnInfo(name = "weight")
     private float weight;
-
-    @ColumnInfo(name = "id_plan")
-    private Long id_plan;
-
-    @ColumnInfo(name = "step_cunt")
-    private int step_count;
 
     @ColumnInfo(name = "creation_date")
     private String creation_date;
@@ -69,16 +64,8 @@ public class User {
         return weight;
     }
 
-    public Long getId_plan() {
-        return id_plan;
-    }
-
     public void setId_user(long id_user) {
         this.id_user = id_user;
-    }
-
-    public int getStep_count() {
-        return step_count;
     }
 
     public String getCreation_date() {
@@ -99,14 +86,6 @@ public class User {
 
     public void setWeight(float weight) {
         this.weight = weight;
-    }
-
-    public void setId_plan(Long id_plan) {
-        this.id_plan = id_plan;
-    }
-
-    public void setStep_count(int step_count) {
-        this.step_count = step_count;
     }
 
     public void setCreation_date(String creation_date) {

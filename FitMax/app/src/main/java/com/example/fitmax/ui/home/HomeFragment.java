@@ -44,7 +44,8 @@ public class HomeFragment extends Fragment {
         binding.today.setText(day);
 
         // creates a checklist
-        List<PhysicalActivity> list = db.userDAO().getActivitiesOfDay(id_user, day);
+        int id_plan = db.planHistoryDAO().getUserPlan(id_user, LocalDate.now().toString());
+        List<PhysicalActivity> list = db.plansFromActivitiesDAO().getActivitiesOfDay(id_plan, day);
         for (PhysicalActivity activity : list) {
 
             // create checkbox

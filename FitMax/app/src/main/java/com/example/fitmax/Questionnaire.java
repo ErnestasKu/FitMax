@@ -11,9 +11,12 @@ import android.widget.Toast;
 import com.example.fitmax.Database.AppActivity;
 import com.example.fitmax.Database.AppDatabase;
 import com.example.fitmax.Database.Plan;
+import com.example.fitmax.Database.PlanHistory;
+import com.example.fitmax.Database.StepHistory;
 import com.example.fitmax.Other.SessionManager;
 import com.example.fitmax.databinding.QuestionnaireBinding;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,15 +48,24 @@ public class Questionnaire extends AppCompatActivity {
         binding.confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isValid = true;
 
-                Float weight = Float.parseFloat(binding.weight.getText().toString().trim());
-                if (weight.isNaN()) {
-                    binding.weightContainer.setHelperText("Weight required");
-                    return;
-                } else if (weight <= 0) {
-                    binding.weightContainer.setHelperText("Weight must be positive number");
-                    return;
-                } else binding.weightContainer.setHelperTextEnabled(false);
+                float weight = 0;
+                int steps = 0;
+
+                try {
+                    if (binding.weight.getText().toString().isEmpty()) {
+                        binding.weightContainer.setHelperText("Weight required");
+                        isValid = false;
+                    } else if ((weight = Float.parseFloat(binding.weight.getText().toString())) <= 0) {
+                        binding.weightContainer.setHelperText("Weight must be positive number");
+                        isValid = false;
+                    } else binding.weightContainer.setHelperTextEnabled(false);
+
+                } catch (NumberFormatException e) {
+                    binding.weightContainer.setHelperText("Invalid weight format");
+                    isValid = false;
+                }
 
 
                 long id_user = getIntent().getLongExtra("id_user", -1);
@@ -61,12 +73,45 @@ public class Questionnaire extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Error, id: " + id_user + " is incorrect",
                             Toast.LENGTH_SHORT).show();
-                    return;
+                    isValid = false;
                 }
+
+                try {
+                    if (binding.steps.getText().toString().isEmpty()) {
+                        binding.stepContainer.setHelperText("Step count required");
+                        isValid = false;
+                    } else if ((steps = Integer.parseInt(binding.steps.getText().toString())) <= 0) {
+                        binding.stepContainer.setHelperText("Step count must be positive number");
+                        isValid = false;
+                    } else binding.stepContainer.setHelperTextEnabled(false);
+
+                } catch (NumberFormatException e) {
+                    binding.stepContainer.setHelperText("Invalid step count format");
+                    isValid = false;
+                }
+
+
+                if (!isValid)
+                    return;
 
                 String plan_string = binding.planSpinner.getSelectedItem().toString();
                 Plan selectedPlan = GetPlanFromName(plan_string, plans);
-                db.userDAO().finishQuestionnaire(id_user, weight, selectedPlan.getId_plan());
+
+                // plan choice
+                PlanHistory planHistory = new PlanHistory();
+                planHistory.setId_user(id_user);
+                planHistory.setId_plan(selectedPlan.getId_plan());
+                planHistory.setPlan_date(LocalDate.now().toString());
+
+                // daily step count choice
+                StepHistory stepHistory = new StepHistory();
+                stepHistory.setId_user(id_user);
+                stepHistory.setSteps(steps);
+                stepHistory.setStep_date(LocalDate.now().toString());
+
+                db.userDAO().updateUserWeight(id_user, weight);
+                db.planHistoryDAO().insert(planHistory);
+                db.stepHistoryDAO().insert(stepHistory);
 
                 Toast.makeText(getApplicationContext(), "Account updated successfully",
                         Toast.LENGTH_SHORT).show();
@@ -80,7 +125,7 @@ public class Questionnaire extends AppCompatActivity {
     private Plan GetPlanFromName(String name, List<Plan> list) {
         Plan foundPlan = null;
         for (Plan plan : list) {
-            if (plan.getPlan_name() == name)
+            if (plan.getPlan_name().equals(name))
                 foundPlan = plan;
         }
         return foundPlan;

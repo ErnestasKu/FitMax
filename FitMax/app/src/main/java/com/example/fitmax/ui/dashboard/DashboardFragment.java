@@ -206,7 +206,7 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
             return;
 
         // get activity info -----------------------------------------------------------------------
-        long id_plan = user.getId_plan();
+        long id_plan = db.planHistoryDAO().getUserPlan(id_user, LocalDate.now().toString());
 
         int activityCount = db.plansFromActivitiesDAO().
                 getActivityCountOfPlanDay(id_plan, fullDate.getDayOfWeek().name());

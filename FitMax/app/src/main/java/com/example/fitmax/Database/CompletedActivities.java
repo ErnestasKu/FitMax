@@ -37,6 +37,7 @@ public class CompletedActivities {
     @ColumnInfo(name = "completion_date")
     private String completion_date;
 
+    // methods -------------------------------------------------------------------------------------
 
     public long getId_completed_activity() {
         return id_completed_activity;

@@ -31,7 +31,6 @@
 
         <!-- weight text -->
         <TextView
-            android:id="@+id/weight_text"
             style="@style/myDescriptionStyle"
             android:text="How much do you weigh? (kg)" />
 
@@ -52,7 +51,6 @@
 
         <!-- plan text -->
         <TextView
-            android:id="@+id/plan_text"
             style="@style/myDescriptionStyle"
             android:text="What workout plan would you be interested in?" />
 
@@ -60,10 +58,30 @@
         <Spinner
             android:id="@+id/plan_spinner"
             style="@style/mySpinnerStyle"
-            android:layout_marginBottom="20dp"
             android:background="@drawable/background_rounded"
             android:paddingLeft="6dp"
             android:textColor="@color/white" />
+
+
+        <!-- weight text -->
+        <TextView
+            style="@style/myDescriptionStyle"
+            android:text="What daily step count are you comfortable with?" />
+
+        <!-- weight container -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/step_container"
+            style="@style/myContainerStyle"
+            android:layout_marginBottom="20dp"
+            android:hint="step count">
+
+            <!-- weight -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/steps"
+                style="@style/myInputStyle"
+                android:inputType="number"
+                android:lines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/confirm_button"
