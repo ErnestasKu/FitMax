@@ -12,8 +12,14 @@ public interface CompletedStepsDAO {
     void insert(CompletedSteps completedSteps);
 
     @Query("SELECT * FROM completedsteps WHERE id_user = :id_user")
-    List<CompletedSteps> GetCSFromId(long id_user);
+    List<CompletedSteps> getCSFromId(long id_user);
 
-    @Query("SELECT * FROM completedsteps WHERE id_user = :id_user AND completion_date = :completion_date")
-    List<CompletedSteps> GetCSFromId(long id_user, String completion_date);
+    @Query("SELECT step_count FROM completedsteps WHERE id_user = :id_user AND completion_date = :completion_date")
+    int getUserSteps(long id_user, String completion_date);
+
+    @Query("UPDATE completedsteps SET step_count = step_count + :step_count WHERE id_user = :id_user AND completion_date = :completion_date")
+    void addSteps(long id_user, String completion_date, int step_count);
+
+    @Query("SELECT COUNT(*) FROM completedsteps WHERE id_user = :id_user AND completion_date = :completion_date")
+    int userEntriesAdded(long id_user, String completion_date);
 }
