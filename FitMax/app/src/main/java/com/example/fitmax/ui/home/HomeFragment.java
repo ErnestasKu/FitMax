@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
 
         long id_user = SessionManager.getLoginSession(getContext());
         int steps = Integer.parseInt(binding.stepInput.getText().toString());
-        String today = LocalDate.now().toString();
+        String today = CommonMethods.getToday();
 
         if (db.completedStepsDAO().userEntriesAdded(id_user, today) > 0)
             db.completedStepsDAO().addSteps(id_user, today, steps);
@@ -92,14 +92,14 @@ public class HomeFragment extends Fragment {
 
     public void setActivityDisplay() {
         long id_user = SessionManager.getLoginSession(getContext());
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String today = CommonMethods.getToday();
 
         // gets current weekday
         String day = LocalDate.now().getDayOfWeek().name();
         binding.today.setText(day);
 
         // creates a checklist
-        long id_plan = db.planHistoryDAO().getUserPlan(id_user, LocalDate.now().toString());
+        long id_plan = db.planHistoryDAO().getUserPlan(id_user, CommonMethods.getToday());
         List<PhysicalActivity> list = db.plansFromActivitiesDAO().getActivitiesOfDay(id_plan, day);
         for (PhysicalActivity activity : list) {
 

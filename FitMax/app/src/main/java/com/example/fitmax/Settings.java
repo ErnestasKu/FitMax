@@ -156,7 +156,7 @@ public class Settings extends AppCompatActivity {
         PlanHistory planHistory = new PlanHistory();
         planHistory.setId_user(SessionManager.getLoginSession(getBaseContext()));
         planHistory.setId_plan(id_plan);
-        planHistory.setPlan_date(LocalDate.now().toString());
+        planHistory.setPlan_date(CommonMethods.getToday());
 
         db.completedActivitiesDAO().deleteActivities(id_user, CommonMethods.getToday());
         db.planHistoryDAO().insert(planHistory);

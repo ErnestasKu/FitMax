@@ -7,6 +7,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.example.fitmax.Other.CommonMethods;
+
 import java.time.LocalDate;
 
 
@@ -38,7 +40,7 @@ public class User {
 
 
     public User() {
-        creation_date = LocalDate.now().toString();
+        creation_date = CommonMethods.getToday();
     }
 
     public long getId_user() {

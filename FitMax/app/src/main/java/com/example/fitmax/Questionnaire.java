@@ -13,6 +13,7 @@ import com.example.fitmax.Database.AppDatabase;
 import com.example.fitmax.Database.Plan;
 import com.example.fitmax.Database.PlanHistory;
 import com.example.fitmax.Database.StepHistory;
+import com.example.fitmax.Other.CommonMethods;
 import com.example.fitmax.Other.SessionManager;
 import com.example.fitmax.databinding.QuestionnaireBinding;
 
@@ -101,13 +102,13 @@ public class Questionnaire extends AppCompatActivity {
                 PlanHistory planHistory = new PlanHistory();
                 planHistory.setId_user(id_user);
                 planHistory.setId_plan(selectedPlan.getId_plan());
-                planHistory.setPlan_date(LocalDate.now().toString());
+                planHistory.setPlan_date(CommonMethods.getToday());
 
                 // daily step count choice
                 StepHistory stepHistory = new StepHistory();
                 stepHistory.setId_user(id_user);
                 stepHistory.setSteps(steps);
-                stepHistory.setStep_date(LocalDate.now().toString());
+                stepHistory.setStep_date(CommonMethods.getToday());
 
                 db.userDAO().updateUserWeight(id_user, weight);
                 db.planHistoryDAO().insert(planHistory);
