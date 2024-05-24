@@ -22,4 +22,10 @@ public interface CompletedStepsDAO {
 
     @Query("SELECT COUNT(*) FROM completedsteps WHERE id_user = :id_user AND completion_date = :completion_date")
     int userEntriesAdded(long id_user, String completion_date);
+
+    @Query("DELETE FROM completedsteps WHERE id_user = :id_user AND completion_date = :completion_date")
+    void deleteSteps(long id_user, String completion_date);
+
+    @Query("DELETE FROM completedsteps WHERE id_user = :id_user")
+    void deleteAll(long id_user);
 }

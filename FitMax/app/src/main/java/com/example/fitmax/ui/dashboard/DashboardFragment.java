@@ -89,6 +89,8 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         ArrayList<BarEntry> list = new ArrayList<>();
         float weight = db.userDAO().getUser(id_user).getWeight();
         for (int i = 0; i < 7; i++) {
+
+            int steps = db.completedStepsDAO().getUserSteps(id_user, startOfWeek.toString());
             List<PhysicalActivity> activities = db.completedActivitiesDAO().
                     getCompletedInDay(id_user, startOfWeek.toString());
             startOfWeek = startOfWeek.plusDays(1);
@@ -97,6 +99,7 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
             for (PhysicalActivity act : activities) {
                 calories += CommonMethods.GetActivityCalories(act, weight);
             }
+            calories += CommonMethods.GetStepCalories(steps, weight);
             list.add(new BarEntry(i, calories));
             totalCalories += calories;
         }
@@ -206,13 +209,17 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
             return;
 
         // get activity info -----------------------------------------------------------------------
-        long id_plan = db.planHistoryDAO().getUserPlan(id_user, LocalDate.now().toString());
+        long id_plan = db.planHistoryDAO().getUserPlan(id_user, fullDate.toString());
 
         int activityCount = db.plansFromActivitiesDAO().
                 getActivityCountOfPlanDay(id_plan, fullDate.getDayOfWeek().name());
 
         int completedCount = db.completedActivitiesDAO().
                 getCompletedCountInDay(id_user, fullDate.toString());
+
+        // get step info ---------------------------------------------------------------------------
+        int stepCount = db.stepHistoryDAO().getUserSteps(id_user, fullDate.toString());
+        int completedSteps = db.completedStepsDAO().getUserSteps(id_user, fullDate.toString());
 
         // create view -----------------------------------------------------------------------------
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -224,9 +231,9 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         ((TextView) view.findViewById(R.id.popup_date)).setText(header);
 
         String line_a = "Completed activities: " + completedCount + "/" + activityCount;
-        String line_b = "No step count set";
+        String line_b = "Steps taken: " + completedSteps + "/" + stepCount;
         ((TextView) view.findViewById(R.id.activity_count_text)).setText(line_a);
-        ((TextView) view.findViewById(R.id.step_count_text)).setText(line_a);
+        ((TextView) view.findViewById(R.id.step_count_text)).setText(line_b);
 
         // activity
         if (completedCount >= activityCount)
@@ -234,10 +241,10 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         else
             view.findViewById(R.id.cross_activity).setVisibility(view.VISIBLE);
 
-        // steps
-        view.findViewById(R.id.check_steps).setVisibility(view.GONE);
-        view.findViewById(R.id.cross_steps).setVisibility(view.GONE);
-        view.findViewById(R.id.step_count_text).setVisibility(view.GONE);
+        if (completedSteps >= stepCount)
+            view.findViewById(R.id.check_steps).setVisibility(view.VISIBLE);
+        else
+            view.findViewById(R.id.cross_steps).setVisibility(view.VISIBLE);
 
         // create popup  ---------------------------------------------------------------------------
         final PopupWindow popupWindow = new PopupWindow(

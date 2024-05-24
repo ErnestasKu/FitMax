@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.example.fitmax.Database.AppActivity;
 import com.example.fitmax.Database.AppDatabase;
 import com.example.fitmax.Login;
+import com.example.fitmax.MainActivity;
 import com.example.fitmax.Questionnaire;
 import com.example.fitmax.TabScreen;
 
@@ -23,6 +24,11 @@ public class SessionManager {
 
     public static void GoToLogin(Context context) {
         Intent intent = new Intent(context, Login.class);
+        context.startActivity(intent);
+    }
+
+    public static void GoToStartingActivity(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
 

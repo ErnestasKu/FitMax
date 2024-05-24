@@ -38,5 +38,10 @@ public interface CompletedActivitiesDAO {
             " :startDate AND :endDate")
     List<PhysicalActivity> getCompletedInTimespan(Long id_user, String startDate, String endDate);
 
+    @Query("DELETE FROM completedactivities WHERE id_user = :id_user AND completion_date = :completion_date")
+    void deleteActivities(long id_user, String completion_date);
+
+    @Query("DELETE FROM completedactivities WHERE id_user = :id_user")
+    void deleteAll(long id_user);
 
 }

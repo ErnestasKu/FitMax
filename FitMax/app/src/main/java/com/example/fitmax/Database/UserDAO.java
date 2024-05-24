@@ -32,18 +32,9 @@ public interface UserDAO {
     @Query("UPDATE user SET weight = :weight WHERE id_user = :id_user")
     void updateUserWeight(long id_user, float weight);
 
-//    @Query("SELECT PhysicalActivity.* " +
-//            "FROM `plan` " +
-//            "JOIN PlansFromActivities on `plan`.id_plan = PlansFromActivities.id_plan " +
-//            "JOIN PhysicalActivity on PhysicalActivity.id_activity = PlansFromActivities.id_activity " +
-//            "JOIN User on user.id_plan = PlansFromActivities.id_plan " +
-//            "WHERE User.id_user = :id_user " +
-//            "AND PlansFromActivities.weekday = :weekday")
-//    List<PhysicalActivity> getActivitiesOfDay(long id_user, String weekday);
-
     @Query("SELECT user.* FROM user WHERE id_user = :id_user")
     User getUser(long id_user);
 
-//    @Query("SELECT id_plan FROM user WHERE id_user = :id_user")
-//    long getUserPlan(long id_user);
+    @Query("DELETE FROM user WHERE id_user = :id_user")
+    int deleteAll(long id_user);
 }

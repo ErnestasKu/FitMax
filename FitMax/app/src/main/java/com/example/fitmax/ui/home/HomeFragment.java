@@ -19,6 +19,7 @@ import com.example.fitmax.Database.AppDatabase;
 import com.example.fitmax.Database.CompletedActivities;
 import com.example.fitmax.Database.CompletedSteps;
 import com.example.fitmax.Database.PhysicalActivity;
+import com.example.fitmax.Other.CommonMethods;
 import com.example.fitmax.Other.SessionManager;
 import com.example.fitmax.databinding.FHomeBinding;
 
@@ -77,8 +78,8 @@ public class HomeFragment extends Fragment {
         long id_user = SessionManager.getLoginSession(getContext());
 
         // progress bar
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        int maxSteps = db.stepHistoryDAO().getUserStepRequirements(id_user, today);
+        String today = CommonMethods.getToday();
+        int maxSteps = db.stepHistoryDAO().getUserSteps(id_user, today);
         int currentSteps = db.completedStepsDAO().getUserSteps(id_user, today);
         binding.stepProgress.setProgressMax(maxSteps);
         binding.stepProgress.setProgressWithAnimation(currentSteps, 500L);
@@ -98,7 +99,7 @@ public class HomeFragment extends Fragment {
         binding.today.setText(day);
 
         // creates a checklist
-        int id_plan = db.planHistoryDAO().getUserPlan(id_user, LocalDate.now().toString());
+        long id_plan = db.planHistoryDAO().getUserPlan(id_user, LocalDate.now().toString());
         List<PhysicalActivity> list = db.plansFromActivitiesDAO().getActivitiesOfDay(id_plan, day);
         for (PhysicalActivity activity : list) {
 

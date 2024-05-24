@@ -14,4 +14,7 @@ public interface PlanDAO {
 
     @Query("SELECT * FROM `plan`")
     List<Plan> getAll();
+
+    @Query("SELECT `Plan`.* FROM `Plan` WHERE id_plan = :id_plan ORDER BY id_plan ASC")
+    Plan getPlan(long id_plan);
 }

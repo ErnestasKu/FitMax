@@ -16,5 +16,8 @@ public interface PlanHistoryDAO {
             " AND plan_date <= :plan_date" +
             " ORDER BY plan_date DESC" +
             " LIMIT 1")
-    int getUserPlan(long id_user, String plan_date);
+    long getUserPlan(long id_user, String plan_date);
+
+    @Query("DELETE FROM planhistory WHERE id_user = :id_user")
+    void deleteAll(long id_user);
 }
