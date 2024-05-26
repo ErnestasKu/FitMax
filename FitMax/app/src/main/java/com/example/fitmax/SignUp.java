@@ -57,8 +57,8 @@ public class SignUp extends AppCompatActivity {
 
                 // email ---------------------------------------------------------------------------
                 String email_string = binding.email.getText().toString().trim();
-                if (email_string.isEmpty()){
-//                        || Patterns.EMAIL_ADDRESS.matcher(email_string).matches()) {
+                if (email_string.isEmpty()
+                        || !Patterns.EMAIL_ADDRESS.matcher(email_string).matches()) {
                     isValid = false;
                     binding.emailContainer.setHelperText("Email invalid");
                 } else if (db.userDAO().checkIfEmailAvailable(email_string)) {
@@ -84,7 +84,7 @@ public class SignUp extends AppCompatActivity {
                 } else binding.passwordConfirmContainer.setHelperTextEnabled(false);
 
                 // sign up -------------------------------------------------------------------------
-                if (isValid){
+                if (isValid) {
                     User user = new User();
                     user.setUsername(username_string);
                     user.setEmail(email_string);
@@ -99,12 +99,12 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void successfulCreation(){
+    private void successfulCreation() {
         CharSequence message = "Account successfully created!";
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void openLogin(){
+    private void openLogin() {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
