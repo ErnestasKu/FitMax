@@ -2,9 +2,11 @@ package com.example.fitmax.ui.dashboard;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -203,13 +205,42 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         LocalDate fullDate = selectedDate.withDayOfMonth(Integer.parseInt(dayText));
         LocalDate creationDate = LocalDate.parse(user.getCreation_date());
 
+
+        // create view -----------------------------------------------------------------------------
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view = inflater.inflate(R.layout.calendar_popup, null);
+
+
+        // create list of activities ---------------------------------------------------------------
+        // gets current weekday
+        String day = fullDate.getDayOfWeek().name();
+
+        long id_plan = db.planHistoryDAO().getUserPlan(id_user, CommonMethods.getToday());
+        List<PhysicalActivity> list = db.plansFromActivitiesDAO().getActivitiesOfDay(id_plan, day);
+
+        for (PhysicalActivity act : list) {
+            TextView tv = new TextView(getContext());
+            tv.setText(act.getActivity_name() + ": " + act.getDuration());
+            tv.setTextSize(18);
+            ((LinearLayout) view.findViewById(R.id.activity_container)).addView(tv);
+
+        }
+
+        // header
+        String header = fullDate.format(DateTimeFormatter.ofPattern("MMMM d"));
+        ((TextView) view.findViewById(R.id.popup_date)).setText(header);
+
         // return if selected date is before creation date
         // or if it's after current day
-        if (fullDate.isBefore(creationDate) || fullDate.isAfter(LocalDate.now()))
-            return;
+        if (fullDate.isBefore(creationDate) || fullDate.isAfter(LocalDate.now())) {
+            ((LinearLayout) view.findViewById(R.id.activity_thing)).setVisibility(view.GONE);
+            ((LinearLayout) view.findViewById(R.id.step_thing)).setVisibility(view.GONE);
+        } else {
+
+
 
         // get activity info -----------------------------------------------------------------------
-        long id_plan = db.planHistoryDAO().getUserPlan(id_user, fullDate.toString());
+//        long id_plan = db.planHistoryDAO().getUserPlan(id_user, fullDate.toString());
 
         int activityCount = db.plansFromActivitiesDAO().
                 getActivityCountOfPlanDay(id_plan, fullDate.getDayOfWeek().name());
@@ -221,14 +252,7 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
         int stepCount = db.stepHistoryDAO().getUserSteps(id_user, fullDate.toString());
         int completedSteps = db.completedStepsDAO().getUserSteps(id_user, fullDate.toString());
 
-        // create view -----------------------------------------------------------------------------
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view = inflater.inflate(R.layout.calendar_popup, null);
-
         // set popup text --------------------------------------------------------------------------
-        // header
-        String header = fullDate.format(DateTimeFormatter.ofPattern("MMMM d"));
-        ((TextView) view.findViewById(R.id.popup_date)).setText(header);
 
         String line_a = "Completed activities: " + completedCount + "/" + activityCount;
         String line_b = "Steps taken: " + completedSteps + "/" + stepCount;
@@ -245,7 +269,7 @@ public class DashboardFragment extends Fragment implements CalendarAdapter.OnIte
             view.findViewById(R.id.check_steps).setVisibility(view.VISIBLE);
         else
             view.findViewById(R.id.cross_steps).setVisibility(view.VISIBLE);
-
+    }
         // create popup  ---------------------------------------------------------------------------
         final PopupWindow popupWindow = new PopupWindow(
                 view,
